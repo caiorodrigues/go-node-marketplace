@@ -1,4 +1,4 @@
-const Mail = require('../services/Queue')
+const Mail = require('../services/Mail')
 
 class PurchaseMail {
   get key () {
