@@ -7,7 +7,7 @@ class AdController {
     if (req.query.price_min || req.query.price_max) {
       filters.price = {}
 
-      if (req.query.price.min) {
+      if (req.query.price_min) {
         filters.price.$gte = req.query.price_min
       }
 
@@ -20,15 +20,12 @@ class AdController {
       filters.title = new RegExp(req.query.title, 'i')
     }
 
-    const ads = await Ad.paginate(
-      { filters },
-      {
-        page: req.query.page || 1,
-        limit: 20,
-        populate: ['author'],
-        sort: '-createdAt'
-      }
-    )
+    const ads = await Ad.paginate(filters, {
+      page: req.query.page || 1,
+      limit: 20,
+      populate: ['author'],
+      sort: '-createdAt'
+    })
 
     return res.json(ads)
   }
