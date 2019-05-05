@@ -1,6 +1,6 @@
 const Ad = require('../models/Ad')
 const User = require('../models/User')
-const Mail = require('../services/mail')
+const Mail = require('../services/Mail')
 
 class PurchaseController {
   async store (req, res) {
@@ -13,7 +13,8 @@ class PurchaseController {
       from: '"Caio Rodrigues" <caiorodrigues@hotmail.com>',
       to: purchaseAd.author.email,
       subject: `Solicitação de compra: ${purchaseAd.title}`,
-      html: `<p>Teste: ${content}</p>`
+      template: 'purchase',
+      context: { user, content, ad: purchaseAd }
     })
 
     return res.send()
